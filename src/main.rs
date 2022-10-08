@@ -5,7 +5,7 @@ use actix_identity::IdentityMiddleware;
 use actix_session::{storage::CookieSessionStore, SessionMiddleware};
 use dotenvy::dotenv;
 use good_stuff::not_found;
-use routes::{home, home::details};
+use routes::{home, home::scoped_home};
 use std::{env, io};
 
 #[actix_web::main()]
@@ -27,7 +27,7 @@ async fn main() -> io::Result<()> {
             )
             .configure(routes::index)
             .configure(home::index)
-            .service(web::scope("/home").configure(details::index))
+            .service(web::scope("/home").configure(scoped_home::index))
             .service(fs::Files::new("/static", "./static"))
             .default_service(web::to(not_found))
     })

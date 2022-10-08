@@ -5,7 +5,7 @@ use good_stuff::forms::{HOME_TEMPLATE, HOME_TITLE, HOME_URL, HOUSE_URL, LOGIN_UR
 use good_stuff::render;
 use tera::Context;
 use uuid::Uuid;
-pub mod details;
+pub mod scoped_home;
 
 use crate::routes::redirect_to;
 
@@ -26,7 +26,7 @@ async fn house_get(user: Option<Identity>, req: HttpRequest) -> Redirect {
     }
     let mut context = Context::new();
     context.insert(TITLE, HOME_TITLE);
-    let id = Uuid::new_v4();
+    let id = 2;
     Identity::login(&req.extensions(), id.to_string()).unwrap();
     redirect_to(HOUSE_URL, HOME_URL)
 }
