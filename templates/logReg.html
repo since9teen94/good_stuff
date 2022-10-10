@@ -41,8 +41,8 @@ block body %}
     </div>
   </form>
 </div>
-{# TODO these scripts are fairly similar, see if you can reduce the code...#} {%
-if title == 'Log In' %}
+<script src="static/js/logRegCommon.js"></script>
+{% if title == 'Log In' %}
 <script src="static/js/logRegFormLogin.js"></script>
 {% elif title == 'Register' %}
 <script src="static/js/logRegFormRegister.js"></script>

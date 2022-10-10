@@ -16,24 +16,10 @@ document.getElementById("logRegForm").addEventListener("submit", async (e) => {
         .removeEventListener("click", feedbackListener);
     });
   };
-  errors.forEach((field) => {
-    document.getElementById(`validation_${field}`).innerText = "";
-  });
 
-  let formData = new FormData(e.target);
-  let body = JSON.stringify(Object.fromEntries(formData));
+  clearErrorFields(errors);
 
-  async function postForm(body) {
-    const req = await fetch("/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body,
-    });
-    const res = await req.json();
-    return res;
-  }
-
-  let response = await postForm(body);
+  let response = await logRegSubmit(e, "/register");
 
   if (response.status === 201)
     window.location.replace("http://localhost:3001/home");

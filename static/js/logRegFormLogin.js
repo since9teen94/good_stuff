@@ -10,25 +10,10 @@ document.getElementById("logRegForm").addEventListener("submit", async (e) => {
         .removeEventListener("click", feedbackListener);
     });
   };
-  errors.forEach((field) => {
-    document.getElementById(`validation_${field}`).innerText = "";
-  });
 
-  let formData = new FormData(e.target);
-  let body = JSON.stringify(Object.fromEntries(formData));
+  clearErrorFields(errors);
 
-  async function postForm(body) {
-    const req = await fetch("/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body,
-    });
-    const res = await req.json();
-    return res;
-  }
-
-  let response = await postForm(body);
-  console.log(response.status);
+  let response = await logRegSubmit(e, "/login");
 
   if (response.status === 200)
     window.location.replace("http://localhost:3001/home");
@@ -43,20 +28,7 @@ document.getElementById("logRegForm").addEventListener("submit", async (e) => {
         .addEventListener("click", feedbackListener);
     });
   }
-  errors.forEach((field) => {
-    if (response.hasOwnProperty(field) === false) return;
-    if (response[field].length < 1) return;
+    //TODO
+    displayErrorsAndAddHandlers(errors)
 
-    document.getElementById(`${field}`).classList.add("is-invalid");
-    response[field].forEach((err) => {
-      if (err.message === null) return;
-      document.getElementById(
-        `validation_${field}`
-      ).innerText += `${err.message}.\xA0`;
-    });
-
-    document
-      .getElementById(`${field}`)
-      .addEventListener("click", feedbackListener);
-  });
 });

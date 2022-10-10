@@ -3,17 +3,16 @@ use actix_web_lab::web::{self as web_lab, Redirect};
 pub mod home;
 use actix_identity::Identity;
 use good_stuff::{
-    forms::{
-        LogRegForm, INDEX_URL, LOGIN_TITLE, LOGIN_URL, LOGOUT_URL, LOG_REG_TEMPLATE, REGISTER,
-        REGISTER_URL,
-    },
+    forms::LogRegForm,
     json_res, login,
     models::{Login, RegisterData},
     register, render,
+    utils::consts::{
+        INDEX_URL, LOGIN_TITLE, LOGIN_URL, LOGOUT_URL, LOG_REG_TEMPLATE, REGISTER, REGISTER_URL,
+    },
 };
 use serde_json::json;
 use tera::Context;
-//use uuid::Uuid;
 use validator::Validate;
 
 fn redirect_to(old: &'static str, new: &'static str) -> Redirect {
@@ -28,7 +27,6 @@ async fn register_get() -> impl Responder {
 
 async fn register_post(req: HttpRequest, register_data: web::Json<RegisterData>) -> impl Responder {
     let user = register_data.into_inner();
-    //TODO change to unique username
     let id = user.email.clone();
     if let Err(e) = user.validate() {
         return json_res(400, e);
@@ -37,7 +35,6 @@ async fn register_post(req: HttpRequest, register_data: web::Json<RegisterData>)
         return json_res(400, e);
     }
     let body = json!({ "message" : "User registered successfully", "status" : 201 });
-    //let id = Uuid::new_v4();
     Identity::login(&req.extensions(), id).unwrap();
     json_res(201, body)
 }
@@ -50,7 +47,6 @@ async fn login_get() -> impl Responder {
 
 async fn login_post(req: HttpRequest, login_data: web::Json<Login>) -> impl Responder {
     let user = login_data.into_inner();
-    //TODO change to unique username
     let id = user.email.clone();
     if let Err(e) = user.validate() {
         return json_res(400, e);
@@ -59,7 +55,6 @@ async fn login_post(req: HttpRequest, login_data: web::Json<Login>) -> impl Resp
         return json_res(400, e);
     }
     let body = json!({ "message" : "User logged in successfully", "status" : 200 });
-    //let id = Uuid::new_v4();
     Identity::login(&req.extensions(), id).unwrap();
     json_res(200, body)
 }

@@ -1,22 +1,6 @@
+use crate::utils::consts::{HOME_URL, LOGIN_TITLE, LOGIN_URL, POST, REGISTER_TITLE, REGISTER_URL};
 use chrono::Datelike;
 use serde::Serialize;
-
-pub const LOGIN_TITLE: &str = "Log In";
-pub const LOGIN_URL: &str = "/login";
-pub const LOGOUT_URL: &str = "/logout";
-const REGISTER_TITLE: &str = "Register";
-pub const REGISTER_URL: &str = "/register";
-pub const HOME_URL: &str = "/home";
-pub const HOME_TEMPLATE: &str = "home.html";
-pub const LOG_REG_TEMPLATE: &str = "logReg.html";
-pub const HOME_TITLE: &str = "Home";
-pub const HOUSE_TITLE: &str = "House";
-pub const HOUSE_URL: &str = "/house";
-pub const TITLE: &str = "title";
-const POST: &str = "POST";
-pub const REGISTER: &str = "Register";
-pub const INDEX_URL: &str = "/";
-pub const DETAILS_URL: &str = "/details";
 
 #[derive(Serialize)]
 pub struct LogRegForm {
@@ -50,12 +34,10 @@ impl LogRegFormField {
 impl LogRegForm {
     pub fn new(title: &str) -> LogRegForm {
         let action = match title {
-            LOGIN_TITLE => String::from(LOGIN_URL),
-            REGISTER_TITLE => String::from(REGISTER_URL),
-            _ => String::from(""),
+            LOGIN_TITLE => LOGIN_URL,
+            REGISTER_TITLE => REGISTER_URL,
+            _ => "",
         };
-        let method = String::from(POST);
-        let home = String::from(HOME_URL);
         let mut form_fields = vec![
             LogRegFormField::new("email", "Email", "email", "Please enter a valid email."),
             LogRegFormField::new(
@@ -92,14 +74,13 @@ impl LogRegForm {
             ));
         };
         let year = chrono::Utc::now().year();
-
         LogRegForm {
-            title: title.to_string(),
-            action,
-            method,
+            title: String::from(title),
+            action: String::from(action),
+            method: String::from(POST),
             year,
             fields: form_fields,
-            home,
+            home: String::from(HOME_URL),
         }
     }
 }

@@ -1,10 +1,9 @@
 use actix_identity::Identity;
 use actix_web::{web, Either, HttpMessage, HttpRequest, HttpResponse};
 use actix_web_lab::web::Redirect;
-use good_stuff::forms::{HOME_TEMPLATE, HOME_TITLE, HOME_URL, HOUSE_URL, LOGIN_URL, TITLE};
 use good_stuff::render;
+use good_stuff::utils::consts::{HOME_TEMPLATE, HOME_TITLE, HOME_URL, HOUSE_URL, LOGIN_URL, TITLE};
 use tera::Context;
-//use uuid::Uuid;
 pub mod scoped_home;
 
 use crate::routes::redirect_to;
@@ -26,8 +25,8 @@ async fn house_get(user: Option<Identity>, req: HttpRequest) -> Redirect {
     }
     let mut context = Context::new();
     context.insert(TITLE, HOME_TITLE);
-    let id = "frodo@theshire.com";
-    Identity::login(&req.extensions(), id.to_string()).unwrap();
+    let id = String::from("frodo@theshire.com");
+    Identity::login(&req.extensions(), id).unwrap();
     redirect_to(HOUSE_URL, HOME_URL)
 }
 

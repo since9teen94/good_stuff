@@ -31,8 +31,6 @@ async fn main() -> io::Result<()> {
             .service(fs::Files::new("/static", "./static"))
             .default_service(web::to(not_found))
     })
-    //TODO
-    //
     .bind(("127.0.0.1", port))?
     .run()
     .await
