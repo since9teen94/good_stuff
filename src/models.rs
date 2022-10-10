@@ -1,10 +1,10 @@
 use crate::schema::users;
 use chrono;
 use diesel::prelude::*;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use validator::Validate;
 
-#[derive(Queryable, Deserialize)]
+#[derive(Queryable, Deserialize, Serialize)]
 #[diesel(table_name = users)]
 pub struct User {
     pub id: i32,

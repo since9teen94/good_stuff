@@ -1,6 +1,7 @@
 pub mod forms;
 pub mod models;
 pub mod schema;
+pub mod utils;
 
 use actix_http::StatusCode;
 use actix_web::{HttpResponse, Responder};

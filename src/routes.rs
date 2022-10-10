@@ -13,7 +13,7 @@ use good_stuff::{
 };
 use serde_json::json;
 use tera::Context;
-use uuid::Uuid;
+//use uuid::Uuid;
 use validator::Validate;
 
 fn redirect_to(old: &'static str, new: &'static str) -> Redirect {
@@ -28,6 +28,8 @@ async fn register_get() -> impl Responder {
 
 async fn register_post(req: HttpRequest, register_data: web::Json<RegisterData>) -> impl Responder {
     let user = register_data.into_inner();
+    //TODO change to unique username
+    let id = user.email.clone();
     if let Err(e) = user.validate() {
         return json_res(400, e);
     }
@@ -35,8 +37,8 @@ async fn register_post(req: HttpRequest, register_data: web::Json<RegisterData>)
         return json_res(400, e);
     }
     let body = json!({ "message" : "User registered successfully", "status" : 201 });
-    let id = Uuid::new_v4();
-    Identity::login(&req.extensions(), id.to_string()).unwrap();
+    //let id = Uuid::new_v4();
+    Identity::login(&req.extensions(), id).unwrap();
     json_res(201, body)
 }
 
@@ -48,6 +50,8 @@ async fn login_get() -> impl Responder {
 
 async fn login_post(req: HttpRequest, login_data: web::Json<Login>) -> impl Responder {
     let user = login_data.into_inner();
+    //TODO change to unique username
+    let id = user.email.clone();
     if let Err(e) = user.validate() {
         return json_res(400, e);
     }
@@ -55,8 +59,8 @@ async fn login_post(req: HttpRequest, login_data: web::Json<Login>) -> impl Resp
         return json_res(400, e);
     }
     let body = json!({ "message" : "User logged in successfully", "status" : 200 });
-    let id = Uuid::new_v4();
-    Identity::login(&req.extensions(), id.to_string()).unwrap();
+    //let id = Uuid::new_v4();
+    Identity::login(&req.extensions(), id).unwrap();
     json_res(200, body)
 }
 
