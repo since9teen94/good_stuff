@@ -29,8 +29,8 @@
   <body>
     {% block body %} {% endblock body %} {% if title == 'Hohoho' %} {% if title
     != 'Register' and title != 'Log In' %} {% include
-    '../components/navbar.html' %} {% endif %} {% block bod %}{% endblock bod
-    %} {% if title!='Register' and title!='Log In' %} {% include
+    '../components/navbar.html' %} {% endif %} {% block bod %}{% endblock bod %}
+    {% if title!='Register' and title!='Log In' %} {% include
     '../components/footer.html' %} {% endif %} {% endif %}
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"

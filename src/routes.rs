@@ -1,7 +1,7 @@
+use actix_identity::Identity;
 use actix_web::{web, HttpMessage, HttpRequest, HttpResponse, Responder};
 use actix_web_lab::web::{self as web_lab, Redirect};
 pub mod home;
-use actix_identity::Identity;
 use good_stuff::{
     forms::LogRegForm,
     json_res, login,

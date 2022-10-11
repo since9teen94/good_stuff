@@ -1,4 +1,9 @@
-{% extends 'index.html' %} {% block title %}{{ title }}{% endblock title %} {%
-block body %}
-<h1>Hello</h1>
+{% extends "index.html" %}
+{% block title %}
+    {{ title }}
+{% endblock title %}
+{% block body %}
+    <h1>Hello</h1>
+    <script src="static/js/logOutButton.js" defer></script>
+    <button href="/logout" id="log-out-button">Log Out</button>
 {% endblock body %}

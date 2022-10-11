@@ -1,4 +1,4 @@
-async function logRegSubmit(e, fetchUrl) {
+async function logRegPostResponse(e, fetchUrl) {
   let formData = new FormData(e.target);
   let body = JSON.stringify(Object.fromEntries(formData));
   async function postForm(body) {
@@ -13,7 +13,6 @@ async function logRegSubmit(e, fetchUrl) {
   let res = postForm(body);
   return res;
 }
-//TODO
 
 const getLogRegResponse = (errors, response) => {
   errors.forEach((field) => {
@@ -40,7 +39,17 @@ const clearErrorFields = (errors) => {
   });
 };
 
-const displayErrorsAndAddHandlers = (errors) => {
+const feedbackListener = (errors) => {
+  errors.forEach((field) => {
+    document.getElementById(`${field}`).classList.remove("is-invalid");
+    document.getElementById(`validation_${field}`).innerText = "";
+    document
+      .getElementById(`${field}`)
+      .removeEventListener("click", feedbackListener);
+  });
+};
+
+const displayErrorsAndAddHandlers = (response, errors) => {
   errors.forEach((field) => {
     if (response.hasOwnProperty(field) === false) return;
     if (response[field].length < 1) return;
@@ -55,6 +64,10 @@ const displayErrorsAndAddHandlers = (errors) => {
 
     document
       .getElementById(`${field}`)
-      .addEventListener("click", feedbackListener);
+      .addEventListener("click", async () => feedbackListener(errors));
   });
 };
+
+async function logRegStatusValidCheck(response, statusCode, redirect_to) {
+  if (response.status === statusCode) window.location.replace(`${redirect_to}`);
+}

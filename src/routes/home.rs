@@ -1,12 +1,12 @@
+pub mod scoped_home;
+
+use crate::routes::redirect_to;
 use actix_identity::Identity;
 use actix_web::{web, Either, HttpMessage, HttpRequest, HttpResponse};
 use actix_web_lab::web::Redirect;
 use good_stuff::render;
 use good_stuff::utils::consts::{HOME_TEMPLATE, HOME_TITLE, HOME_URL, HOUSE_URL, LOGIN_URL, TITLE};
 use tera::Context;
-pub mod scoped_home;
-
-use crate::routes::redirect_to;
 
 type RedirectOrResponse = actix_web::Either<Redirect, HttpResponse>;
 
@@ -19,6 +19,7 @@ async fn home_get(user: Option<Identity>) -> RedirectOrResponse {
     Either::Right(render(HOME_TEMPLATE, context))
 }
 
+///This function exists as a convenience
 async fn house_get(user: Option<Identity>, req: HttpRequest) -> Redirect {
     if user.is_some() {
         return redirect_to(HOUSE_URL, HOME_URL);
