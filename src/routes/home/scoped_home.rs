@@ -2,6 +2,7 @@ use crate::routes::redirect_to;
 use actix_identity::Identity;
 use actix_web::{web, Either, HttpResponse};
 use actix_web_lab::web::Redirect;
+use chrono::Datelike;
 use diesel::prelude::*;
 use good_stuff::{
     establish_connection, render,
@@ -33,7 +34,8 @@ async fn details_get(user: Option<Identity>) -> RedirectOrResponse {
         ("Last Name", &user_details.2),
     ]);
     context.insert("details", &details);
-    Either::Right(render("details.html", context))
+    context.insert("year", &chrono::Utc::now().year());
+    Either::Right(render("home.html", context))
 }
 
 pub fn index(cfg: &mut web::ServiceConfig) {

@@ -1,9 +1,59 @@
-{% extends "index.html" %}
-{% block title %}
-    {{ title }}
-{% endblock title %}
+{% extends "index.html" %} 
+{% import "featurette.html" as f %}
+{% import "components/navbar.html" as navHeader %}
+{% import "components/footer.html" as navFooter %}
+
+{% block title %}{{ title }}{% endblock title %} 
 {% block body %}
-    <h1>Hello</h1>
-    <script src="static/js/logOutButton.js" defer></script>
-    <button href="/logout" id="log-out-button">Log Out</button>
+<nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/home">Static Demo</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {{ navHeader::navHeader(text="Login", active="", href="/login") }}
+          {{ navHeader::navHeader(text="Registration", active="", href="/register") }}
+          {{ navHeader::navHeader(text="Tic-Tac-Toe", active="", href="/home/game") }}
+          {{ navHeader::navHeader(text="Skills", active="", href="/home/skills") }} 
+          {{ navHeader::navHeader(text="Links", active="", href="/home/links") }}
+          {{ navHeader::navHeader(text="Office Quotes", active="", href="/home/quotes") }}
+          {{ navHeader::navHeader(text="Static Pagination", active="", href="/home/ptable") }}
+          {{ navHeader::navHeader(text="Details", active="", href="/home/details") }}
+      </ul>
+      <script src="static/js/logOutButton.js" defer></script>
+      <button id="log-out-button" class="btn btn-outline-warning" href="/logout">Log Out</button>
+    </div>
+  </div>
+</nav>
+<div id="featurettes-div">
+    {% if title == "Home" %}
+        {% for feature in features %} 
+            {{ f::feature(ftitle=feature.ftitle, contributions=feature.contributions, takeaways=feature.takeaways, url=feature.url, index=feature.index) }}
+        {% endfor %} 
+    {% elif title == "Details" %}
+        {% include "details.html" %}
+    {% endif %}
+</div>
+<div class="container">
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      {{ navFooter::navFooter(text="Home") }} 
+      {{ navFooter::navFooter(text="Features") }} 
+      {{ navFooter::navFooter(text="Pricing") }}
+      {{ navFooter::navFooter(text="FAQs") }} 
+      {{ navFooter::navFooter(text="About") }}
+    </ul>
+    <p class="text-end text-muted">© {{ year }} since9teen94</p>
+  </footer>
+</div>
 {% endblock body %}

@@ -19,9 +19,12 @@ fn redirect_to(old: &'static str, new: &'static str) -> Redirect {
     web_lab::Redirect::new(old, new)
 }
 
-async fn register_get() -> impl Responder {
+async fn register_get(user: Option<Identity>) -> impl Responder {
     let login_form = LogRegForm::new(REGISTER);
-    let context = Context::from_serialize(login_form).unwrap();
+    let mut context = Context::from_serialize(login_form).unwrap();
+    if user.is_some() {
+        context.insert("authenticated", &true)
+    }
     render(LOG_REG_TEMPLATE, context)
 }
 
@@ -39,9 +42,12 @@ async fn register_post(req: HttpRequest, register_data: web::Json<RegisterData>)
     json_res(201, body)
 }
 
-async fn login_get() -> impl Responder {
+async fn login_get(user: Option<Identity>) -> impl Responder {
     let login_form = LogRegForm::new(LOGIN_TITLE);
-    let context = Context::from_serialize(login_form).unwrap();
+    let mut context = Context::from_serialize(login_form).unwrap();
+    if user.is_some() {
+        context.insert("authenticated", &true)
+    }
     render(LOG_REG_TEMPLATE, context)
 }
 

@@ -1,0 +1,5 @@
+{% macro navHeader(text="", active="", href="#") %}
+<li class="nav-item">
+  <a class="nav-link {{ active }}" aria-current="page" href="{{ href }}">{{ text }}</a>
+</li>
+{% endmacro navHeader %}

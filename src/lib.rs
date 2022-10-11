@@ -20,7 +20,7 @@ use tera::{Context, Tera};
 use validator::{ValidationError, ValidationErrors};
 
 lazy_static! {
-    static ref TEMPLATES: Tera = Tera::new("templates/*").unwrap();
+    static ref TEMPLATES: Tera = Tera::new("templates/**/*.html").unwrap();
 }
 
 pub fn render(file: &str, context: Context) -> HttpResponse {

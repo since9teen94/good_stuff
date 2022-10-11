@@ -14,3 +14,21 @@ pub const POST: &str = "POST";
 pub const REGISTER: &str = "Register";
 pub const INDEX_URL: &str = "/";
 pub const DETAILS_URL: &str = "/details";
+
+pub const CARD_ONE: [(&str, &str); 5] = [( "url", "https://res.cloudinary.com/dxrtzusla/video/upload/v1644590054/Screen_Recording_2022-02-11_at_8.28.54_AM_rrryoh.mov"),
+( "ftitle", "Messenger App"),
+( "contributions", "Implemented styles for the login / registration page, fixed some message rendering issues due to immutability not being enforced and added image upload functionality."),
+( "takeaways", "Better understanding of React, Redux, Material UI, Axios, Express, Node.js, concurrent requests with JavaScript and what's expected in a collaborative team environment."),
+("index", "0")];
+
+pub const CARD_TWO: [(&str, &str); 5] = [( "url", "https://res.cloudinary.com/dxrtzusla/video/upload/v1644590653/Screen_Recording_2022-02-11_at_8.40.42_AM_pf4dye.mov"),
+( "ftitle", "Tic-Tac-Toe"),
+( "contributions", "I created a simple, unstyled tic-tac-toe app using pure HTML, CSS and JavaScript. Then I recreated the app in React and deployed it to GitHub Pages."),
+( "takeaways", "Better understanding of the core JavaScript principles that React uses under the hood. How to deploy a React app to GH-Pages and how to incorporate routing in a SPA in GH-Pages (a feature that was not implemented on this tic-tac-toe app)."),
+("index", "0")];
+
+pub const CARD_THREE: [(&str, &str); 5] = [( "url", "https://res.cloudinary.com/dxrtzusla/video/upload/v1644595149/Screen_Recording_2022-02-11_at_9.54.43_AM_yyivri.mov"),
+( "ftitle", "Simple API"),
+( "contributions", "A backend assessment for Hatchways."),
+( "takeaways", "Learned a lot about Python & backend development in this and other API projects, such as caching, multithreading, generator functions, creating/using decorators, class methods, using tools such as Postman, cURL, python requests library to interact with APIs, document databases, etc."),
+("index", "0")];
