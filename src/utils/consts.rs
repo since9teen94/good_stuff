@@ -17,6 +17,7 @@ pub const DETAILS_URL: &str = "/details";
 pub const GAME_URL: &str = "/game";
 pub const SKILLS_URL: &str = "/skills";
 pub const LINKS_URL: &str = "/links";
+pub const QUOTES_URL: &str = "/quotes";
 
 pub const CARD_ONE: [(&str, &str); 5] = [( "url", "https://res.cloudinary.com/dxrtzusla/video/upload/v1644590054/Screen_Recording_2022-02-11_at_8.28.54_AM_rrryoh.mov"),
 ( "ftitle", "Messenger App"),

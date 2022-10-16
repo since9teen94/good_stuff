@@ -7,7 +7,8 @@ use diesel::prelude::*;
 use good_stuff::{
     establish_connection, render,
     utils::consts::{
-        DETAILS_URL, GAME_URL, LINKS_ONE, LINKS_TWO, LINKS_URL, LOGIN_URL, SKILLS, SKILLS_URL,
+        DETAILS_URL, GAME_URL, LINKS_ONE, LINKS_TWO, LINKS_URL, LOGIN_URL, QUOTES_URL, SKILLS,
+        SKILLS_URL,
     },
 };
 use std::collections::HashMap;
@@ -70,12 +71,22 @@ async fn links_get(user: Option<Identity>) -> IdCheck {
     if user.is_none() {
         return Either::Left(redirect_to(DETAILS_URL, LOGIN_URL));
     }
+    let links_one = HashMap::from(LINKS_ONE);
+    let links_two = HashMap::from(LINKS_TWO);
     let mut context = Context::new();
     context.insert("title", "Links");
     context.insert("year", &chrono::Utc::now().year());
-    let links_one = HashMap::from(LINKS_ONE);
-    let links_two = HashMap::from(LINKS_TWO);
     context.insert("links", &[links_one, links_two]);
+    Either::Right(render("home.html", context))
+}
+
+async fn quotes_get(user: Option<Identity>) -> IdCheck {
+    if user.is_none() {
+        return Either::Left(redirect_to(DETAILS_URL, LOGIN_URL));
+    }
+    let mut context = Context::new();
+    context.insert("title", "Office Quotes");
+    context.insert("year", &chrono::Utc::now().year());
     Either::Right(render("home.html", context))
 }
 
@@ -98,6 +109,11 @@ pub fn index(cfg: &mut web::ServiceConfig) {
     .service(
         web::resource(LINKS_URL)
             .route(web::get().to(links_get))
+            .route(web::head().to(HttpResponse::MethodNotAllowed)),
+    )
+    .service(
+        web::resource(QUOTES_URL)
+            .route(web::get().to(quotes_get))
             .route(web::head().to(HttpResponse::MethodNotAllowed)),
     );
 }
