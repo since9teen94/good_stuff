@@ -15,6 +15,7 @@ pub const REGISTER: &str = "Register";
 pub const INDEX_URL: &str = "/";
 pub const DETAILS_URL: &str = "/details";
 pub const GAME_URL: &str = "/game";
+pub const SKILLS_URL: &str = "/skills";
 
 pub const CARD_ONE: [(&str, &str); 5] = [( "url", "https://res.cloudinary.com/dxrtzusla/video/upload/v1644590054/Screen_Recording_2022-02-11_at_8.28.54_AM_rrryoh.mov"),
 ( "ftitle", "Messenger App"),
@@ -33,3 +34,33 @@ pub const CARD_THREE: [(&str, &str); 5] = [( "url", "https://res.cloudinary.com/
 ( "contributions", "A backend assessment for Hatchways."),
 ( "takeaways", "Learned a lot about Python & backend development in this and other API projects, such as caching, multithreading, generator functions, creating/using decorators, class methods, using tools such as Postman, cURL, python requests library to interact with APIs, document databases, etc."),
 ("index", "0")];
+
+pub const SKILLS: [&str; 27] = [
+    "Python",
+    "JavaScript",
+    "React",
+    "Redux",
+    "Django",
+    "NodeJS",
+    "Flask",
+    "Fastify",
+    "Restful APIs",
+    "HTML5",
+    "CSS3",
+    "Bootstrap",
+    "Material UI",
+    "jQuery UI",
+    "VsCode",
+    "VIM",
+    "Bash/ZSH",
+    "Git",
+    "PIP / NPM web scraping libraries",
+    "MTV/MVC Development Pattern",
+    "SQL - NoSQL, MySQL, PostgreSQL, MSSQL",
+    "ORM's",
+    "AWS",
+    "JSON / XML",
+    "jQuery",
+    "Mac / Linux",
+    "SASS / LESS",
+];
