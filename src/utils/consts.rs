@@ -16,6 +16,7 @@ pub const INDEX_URL: &str = "/";
 pub const DETAILS_URL: &str = "/details";
 pub const GAME_URL: &str = "/game";
 pub const SKILLS_URL: &str = "/skills";
+pub const LINKS_URL: &str = "/links";
 
 pub const CARD_ONE: [(&str, &str); 5] = [( "url", "https://res.cloudinary.com/dxrtzusla/video/upload/v1644590054/Screen_Recording_2022-02-11_at_8.28.54_AM_rrryoh.mov"),
 ( "ftitle", "Messenger App"),
@@ -63,4 +64,17 @@ pub const SKILLS: [&str; 27] = [
     "jQuery",
     "Mac / Linux",
     "SASS / LESS",
+];
+
+pub const LINKS_ONE: [(&str, &str); 2] = [
+    (
+        "href",
+        "https://www.linkedin.com/in/alejandro-yanez-995552220/",
+    ),
+    ("text", "LinkedIn"),
+];
+
+pub const LINKS_TWO: [(&str, &str); 2] = [
+    ("href", "https://github.com/since9teen94"),
+    ("text", "GitHub"),
 ];
