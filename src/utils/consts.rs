@@ -14,6 +14,7 @@ pub const POST: &str = "POST";
 pub const REGISTER: &str = "Register";
 pub const INDEX_URL: &str = "/";
 pub const DETAILS_URL: &str = "/details";
+pub const GAME_URL: &str = "/game";
 
 pub const CARD_ONE: [(&str, &str); 5] = [( "url", "https://res.cloudinary.com/dxrtzusla/video/upload/v1644590054/Screen_Recording_2022-02-11_at_8.28.54_AM_rrryoh.mov"),
 ( "ftitle", "Messenger App"),

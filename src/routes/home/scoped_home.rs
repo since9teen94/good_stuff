@@ -6,14 +6,14 @@ use chrono::Datelike;
 use diesel::prelude::*;
 use good_stuff::{
     establish_connection, render,
-    utils::consts::{DETAILS_URL, LOGIN_URL},
+    utils::consts::{DETAILS_URL, GAME_URL, LOGIN_URL},
 };
 use std::collections::HashMap;
 use tera::Context;
 
-type RedirectOrResponse = actix_web::Either<Redirect, HttpResponse>;
+type IdCheck = actix_web::Either<Redirect, HttpResponse>;
 
-async fn details_get(user: Option<Identity>) -> RedirectOrResponse {
+async fn details_get(user: Option<Identity>) -> IdCheck {
     if user.is_none() {
         return Either::Left(redirect_to(DETAILS_URL, LOGIN_URL));
     }
@@ -38,10 +38,25 @@ async fn details_get(user: Option<Identity>) -> RedirectOrResponse {
     Either::Right(render("home.html", context))
 }
 
+async fn game_get(user: Option<Identity>) -> IdCheck {
+    if user.is_none() {
+        return Either::Left(redirect_to(DETAILS_URL, LOGIN_URL));
+    }
+    let mut context = Context::new();
+    context.insert("title", "Tic-Tac-Toe");
+    context.insert("year", &chrono::Utc::now().year());
+    Either::Right(render("home.html", context))
+}
+
 pub fn index(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::resource(DETAILS_URL)
             .route(web::get().to(details_get))
+            .route(web::head().to(HttpResponse::MethodNotAllowed)),
+    )
+    .service(
+        web::resource(GAME_URL)
+            .route(web::get().to(game_get))
             .route(web::head().to(HttpResponse::MethodNotAllowed)),
     );
 }

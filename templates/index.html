@@ -8,13 +8,13 @@
     <!--{% if title=='Periodic Table' %}-->
     <!--<script src="../js/ptable.js" defer></script>-->
     <!--{% endif %}-->
-    <!--{% if title=='Tic-Tac-Toe' %}-->
-    <!--<link rel="stylesheet" href="../css/board.css" />-->
-    <!--{% endif %} -->
+    {% if title=="Tic-Tac-Toe" %}
+    <link rel="stylesheet" href="/static/css/board.css" />
+    {% endif %} 
     <!--{% if title=='Office Quotes' %}-->
     <!--<script src="../js/officeQuotes.js"></script>-->
     <!--{% endif %} -->
-    {% if title=='Register' or title=='Log In' %}
+    {% if title=="Register" or title=="Log In" %}
     <link rel="stylesheet" href="../static/css/logReg.css" />
     <!--<script src="../js/logReg.js"></script>-->
     {% endif %}

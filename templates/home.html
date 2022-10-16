@@ -30,7 +30,7 @@
           {{ navHeader::navHeader(text="Static Pagination", active="", href="/home/ptable") }}
           {{ navHeader::navHeader(text="Details", active="", href="/home/details") }}
       </ul>
-      <script src="static/js/logOutButton.js" defer></script>
+      <script src="/static/js/logOutButton.js" defer></script>
       <button id="log-out-button" class="btn btn-outline-warning" href="/logout">Log Out</button>
     </div>
   </div>
@@ -42,6 +42,8 @@
         {% endfor %} 
     {% elif title == "Details" %}
         {% include "details.html" %}
+    {% elif title == "Tic-Tac-Toe" %}
+        {% include "game.html" %}
     {% endif %}
 </div>
 <div class="container">
