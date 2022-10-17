@@ -13,7 +13,7 @@ use diesel::{self, insert_into, pg::PgConnection, prelude::*};
 use dotenvy::dotenv;
 use lazy_static::lazy_static;
 use models::{Login, RegisterData, RegisterUser};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use std::borrow::Cow;
 use std::env;
 use tera::{Context, Tera};
@@ -21,6 +21,12 @@ use validator::{ValidationError, ValidationErrors};
 
 lazy_static! {
     static ref TEMPLATES: Tera = Tera::new("templates/**/*.html").unwrap();
+}
+
+#[derive(Deserialize)]
+pub struct Pagination {
+    #[serde(rename = "curPage")]
+    pub cur_page: i32,
 }
 
 pub fn render(file: &str, context: Context) -> HttpResponse {

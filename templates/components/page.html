@@ -1,0 +1,9 @@
+{% macro page(pageNum, active) %}
+<li class="page-item">
+  <a
+    class="page-link {{ pageNum }} {{ active }}"
+    href="/home/ptable?curPage={{ pageNum }}"
+    >{{ pageNum }}</a
+  >
+</li>
+{% endmacro %}

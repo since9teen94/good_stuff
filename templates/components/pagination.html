@@ -1,0 +1,49 @@
+{% import "components/page.html" as page %}
+
+{% macro pagination(curPage, lastPage) %} 
+{% if curPage > 1 %}
+<li class="page-item">
+  <a class="page-link prev" href="/home/ptable?curPage={{ curPage-1 }}">Prev</a>
+</li>
+{% else %}
+<li class="page-item">
+  <a class="page-link prev disabled" href="#">Prev</a>
+</li>
+{% endif %} 
+
+{% if curPage-2 >= 1 %} 
+    {{ page::page(pageNum=curPage-2, active="") }} 
+{% else %} 
+<li class="page-item invisible"> <a class="page-link" href="#"></a> </li>
+{% endif %} 
+
+{% if curPage-1 >= 1 %} 
+    {{ page::page(pageNum=curPage-1, active="") }} 
+{% else %} 
+<li class="page-item invisible"> <a class="page-link" href="#"></a> </li>
+{% endif %} 
+
+{{ page::page(pageNum=curPage, active="active") }} 
+
+{% if curPage+1 <= lastPage %}
+    {{ page::page(pageNum=curPage+1, active="") }} 
+{% else %} 
+<li class="page-item invisible"> <a class="page-link" href="#"></a> </li>
+{% endif %} 
+
+{% if curPage+2 <= lastPage %}
+    {{ page::page(pageNum=curPage+2, active="") }} 
+{% else %} 
+<li class="page-item invisible"> <a class="page-link" href="#"></a> </li>
+{% endif %} 
+
+{% if curPage < lastPage %}
+<li class="page-item">
+  <a class="page-link next" href="/home/ptable?curPage={{ curPage+1 }}">Next</a>
+</li>
+{% else %}
+<li class="page-item">
+  <a class="page-link next disabled" href="#">Next</a>
+</li>
+{% endif %} 
+{% endmacro %} 

@@ -10,12 +10,12 @@ use diesel::prelude::*;
 use good_stuff::{
     establish_connection, render,
     utils::consts::{
-        DETAILS_URL, GAME_URL, LINKS_ONE, LINKS_TWO, LINKS_URL, LOGIN_URL, PTABLE_URL, QUOTES_URL,
-        SKILLS, SKILLS_URL,
+        DETAILS_URL, ELEMENTS, GAME_URL, LINKS_ONE, LINKS_TWO, LINKS_URL, LOGIN_URL, PTABLE_URL,
+        QUOTES_URL, SKILLS, SKILLS_URL,
     },
+    Pagination,
 };
 use paginate::Pages;
-use serde::Deserialize;
 use std::collections::HashMap;
 use tera::Context;
 
@@ -85,38 +85,42 @@ async fn links_get(user: Option<Identity>) -> IdCheck {
     Either::Right(render("home.html", context))
 }
 
-async fn quotes_get(user: Option<Identity>, info: Query<Pagination>) -> IdCheck {
+async fn quotes_get(user: Option<Identity>) -> IdCheck {
     if user.is_none() {
         return Either::Left(redirect_to(DETAILS_URL, LOGIN_URL));
     }
-    let cur_page = info.cur_page;
     let mut context = Context::new();
     context.insert("title", "Office Quotes");
     context.insert("year", &chrono::Utc::now().year());
     Either::Right(render("home.html", context))
 }
-async fn ptable_get(user: Option<Identity>) -> IdCheck {
+async fn ptable_get(user: Option<Identity>, info: Option<Query<Pagination>>) -> IdCheck {
     if user.is_none() {
         return Either::Left(redirect_to(DETAILS_URL, LOGIN_URL));
     }
-    //let total_items =
+    let total_items: usize = ELEMENTS.len();
+    let items_per_page: usize = 10;
+    let last_page = f32::ceil(total_items as f32 / items_per_page as f32) as i32;
+    let pages = Pages::new(total_items, items_per_page);
+    let mut cur_page = match info {
+        Some(t) => t.cur_page,
+        None => 1,
+    };
+    if cur_page < 1 {
+        cur_page = 1
+    } else if cur_page > last_page {
+        cur_page = last_page
+    }
+    let page = pages.with_offset((cur_page - 1) as usize);
     let mut context = Context::new();
     context.insert("title", "Periodic Table");
     context.insert("year", &chrono::Utc::now().year());
+    context.insert("curPage", &cur_page);
+    context.insert("lastPage", &last_page);
+    context.insert("elements", &ELEMENTS[page.start..=page.end]);
+
     Either::Right(render("home.html", context))
 }
-#[derive(Deserialize)]
-struct Pagination {
-    cur_page: i32,
-}
-//let curPage =
-//Option req.query.curPage != undefined ? parseInt(req.query.curPage) : 1;
-//const context = app.utils.ptable(curPage, res);
-//return curPage < 1
-//? res.redirect("ptable?curPage=1")
-//: curPage > context.lastPage
-//? res.redirect(`ptable?curPage=${context.lastPage}`)
-//: res.view("ptable.html", context);
 
 pub fn index(cfg: &mut web::ServiceConfig) {
     cfg.service(

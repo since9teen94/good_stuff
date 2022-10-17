@@ -1,7 +1,5 @@
 pub mod scoped_home;
 
-use std::collections::HashMap;
-
 use crate::routes::redirect_to;
 use actix_identity::Identity;
 use actix_web::{web, Either, HttpMessage, HttpRequest, HttpResponse};
@@ -12,6 +10,7 @@ use good_stuff::utils::consts::{
     CARD_ONE, CARD_THREE, CARD_TWO, HOME_TEMPLATE, HOME_TITLE, HOME_URL, HOUSE_URL, LOGIN_URL,
     TITLE,
 };
+use std::collections::HashMap;
 use tera::Context;
 
 type RedirectOrResponse = actix_web::Either<Redirect, HttpResponse>;
@@ -31,7 +30,6 @@ async fn home_get(user: Option<Identity>) -> RedirectOrResponse {
     Either::Right(render(HOME_TEMPLATE, context))
 }
 
-///This function exists as a convenience
 async fn house_get(user: Option<Identity>, req: HttpRequest) -> Redirect {
     if user.is_some() {
         return redirect_to(HOUSE_URL, HOME_URL);

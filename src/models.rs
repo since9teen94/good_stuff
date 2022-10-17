@@ -8,7 +8,6 @@ use validator::Validate;
 #[diesel(table_name = users)]
 pub struct User {
     pub id: i32,
-    //#[serde(rename = "firstName")]
     pub first_name: String,
     pub last_name: String,
     pub email: String,

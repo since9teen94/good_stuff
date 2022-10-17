@@ -2,6 +2,8 @@
 {% import "featurette.html" as f %}
 {% import "components/navbar.html" as navHeader %}
 {% import "components/footer.html" as navFooter %}
+{% import "components/page.html" as page %}
+{% import "components/pagination.html" as pagination %}
 
 {% block title %}{{ title }}{% endblock title %} 
 {% block body %}
@@ -50,6 +52,8 @@
         {% include "links.html" %}
     {% elif title == "Office Quotes" %}
         {% include "officeQuotes.html" %}
+    {% elif title == "Periodic Table" %}
+        {% include "ptable.html" %}
     {% endif %}
 </div>
 <div class="container">
