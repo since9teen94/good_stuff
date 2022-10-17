@@ -1,3 +1,11 @@
+function qs(selector) {
+  return document.querySelector(selector);
+}
+
+function qsa(selector) {
+  return document.querySelectorAll(selector);
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   let page = parseInt(qs("#curPage").dataset.page);
   let lastPage = parseInt(qs("#lastPage").dataset.page);
