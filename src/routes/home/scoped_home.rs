@@ -94,6 +94,7 @@ async fn quotes_get(user: Option<Identity>) -> IdCheck {
     context.insert("year", &chrono::Utc::now().year());
     Either::Right(render("home.html", context))
 }
+
 async fn ptable_get(user: Option<Identity>, info: Option<Query<Pagination>>) -> IdCheck {
     if user.is_none() {
         return Either::Left(redirect_to(DETAILS_URL, LOGIN_URL));
@@ -118,7 +119,6 @@ async fn ptable_get(user: Option<Identity>, info: Option<Query<Pagination>>) -> 
     context.insert("curPage", &cur_page);
     context.insert("lastPage", &last_page);
     context.insert("elements", &ELEMENTS[page.start..=page.end]);
-
     Either::Right(render("home.html", context))
 }
 

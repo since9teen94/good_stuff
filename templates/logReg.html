@@ -5,7 +5,6 @@
 {% block body %}
     <div class="row d-flex align-items-center">
         <div class="booksDiv d-none d-sm-flex col-sm-4 align-items-center justify-content-center">
-            <!-- add url for this -->
             <img class="booksSvg" src="../static/svg/books.svg" alt="Books svg" />
         </div>
         <form class="fullheight col-xs-12 col-sm-8 form-signin d-flex flex-column align-items-start justify-content-center px-5"
@@ -36,7 +35,9 @@
             </div>
         </form>
     </div>
-    {% if title == "Log In" or title == "Register" %}<script src="static/js/logRegFormCommon.js" defer></script>{% endif %}
+    {% if title == "Log In" or title == "Register" %}
+        <script src="static/js/logRegFormCommon.js" defer></script>
+    {% endif %}
     {% if title == "Log In" %}
         <script src="static/js/logRegFormLogin.js" defer></script>
     {% elif title == "Register" %}
