@@ -14,6 +14,7 @@ use good_stuff::{
         SKILLS, SKILLS_URL,
     },
 };
+use paginate::Pages;
 use serde::Deserialize;
 use std::collections::HashMap;
 use tera::Context;
@@ -98,6 +99,7 @@ async fn ptable_get(user: Option<Identity>) -> IdCheck {
     if user.is_none() {
         return Either::Left(redirect_to(DETAILS_URL, LOGIN_URL));
     }
+    //let total_items =
     let mut context = Context::new();
     context.insert("title", "Periodic Table");
     context.insert("year", &chrono::Utc::now().year());
